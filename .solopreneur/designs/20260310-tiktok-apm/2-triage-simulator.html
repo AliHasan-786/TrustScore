@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="black">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustScore-RAG | Triage Simulator</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { tiktokCyan: '#25f4ee', tiktokRed: '#fe2c55', } } }
+        }
+    </script>
+</head>
+
+<body class="min-h-screen bg-black text-white">
+    <nav class="navbar border-b border-white/10 px-4">
+        <span class="font-bold text-xl flex items-center gap-2 flex-1"><svg class="w-6 h-6 text-tiktokRed" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                </path>
+            </svg>TrustScore-RAG</span>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal text-zinc-400">
+                <li><a href="1-landing-and-concept.html">Concept</a></li>
+                <li><a class="text-white">Simulator</a></li>
+                <li><a href="3-human-moderator-dashboard.html">Escalation UI</a></li>
+                <li><a href="4-prd.html">PRD</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-6 mt-8">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold mb-2">Interactive Triage Simulator</h2>
+            <p class="text-zinc-400">Enter a hypothetical content claim or select a standard test case.</p>
+        </div>
+
+        <div class="bg-neutral-900 border border-white/10 rounded-2xl p-6 mb-8">
+            <!-- Test cases -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button
+                    class="badge badge-lg badge-outline border-tiktokCyan bg-tiktokCyan/10 text-white cursor-pointer">Civic
+                    Integrity (Epistemic)</button>
+                <button
+                    class="badge badge-lg badge-outline text-zinc-400 hover:text-white cursor-pointer border-white/20">Health
+                    Misinfo (Aleatoric)</button>
+                <button
+                    class="badge badge-lg badge-outline text-zinc-400 hover:text-white cursor-pointer border-white/20">Clear
+                    Violator (Auto-Take)</button>
+                <button
+                    class="badge badge-lg badge-outline text-zinc-400 hover:text-white cursor-pointer border-white/20">Benign
+                    (Auto-Approve)</button>
+            </div>
+
+            <textarea class="textarea w-full h-32 bg-black border-white/20 text-white font-mono p-4"
+                placeholder="Enter transcript...">New legislation outlaws all synthetic media in the EU starting tomorrow. Share so people know!</textarea>
+
+            <button class="btn w-full mt-4 bg-white text-black hover:bg-gray-200 border-none font-bold text-lg">Run
+                Triage Engine (Simulate Agents)</button>
+        </div>
+
+        <!-- Simulated trace -->
+        <div class="bg-neutral-900 border border-white/10 rounded-2xl p-6">
+            <h3 class="text-sm font-bold text-zinc-500 uppercase mb-4 tracking-wider flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                Agentic Trace (3.1s TTFT)
+            </h3>
+
+            <div class="space-y-4">
+                <div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-tiktokCyan"></span><span
+                        class="font-bold">Planner</span><span class="text-zinc-400 text-sm">Decomposing
+                        claim</span><span class="ml-auto font-mono text-zinc-500">420ms</span></div>
+                <div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-tiktokCyan"></span><span
+                        class="font-bold">Retrieval</span><span class="text-zinc-400 text-sm">Querying isolated RAG
+                        vector DB (DSA, Community Guidelines)</span><span
+                        class="ml-auto font-mono text-zinc-500">850ms</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="w-3 h-3 rounded-full bg-yellow-400 animate-pulse"></span><span class="font-bold">LPP
+                        Assessor</span><span class="text-zinc-400 text-sm">Calculating epistemic confidence
+                        bounds</span></div>
+            </div>
+
+            <div class="mt-8 border-t border-white/10 pt-6">
+                <div
+                    class="alert bg-orange-500/10 border-orange-500/30 text-white text-left shadow-[0_0_15px_rgba(251,146,60,0.1)]">
+                    <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                        </path>
+                    </svg>
+                    <div>
+                        <h3 class="font-bold">Routing Decision: Escalate</h3>
+                        <div class="text-sm text-zinc-300">LPP Confidence fell below 90% logic threshold (Scored: 42%).
+                            Reason: Epistemic Uncertainty. Escalating to Human Moderator.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

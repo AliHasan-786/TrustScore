@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="black">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustScore-RAG | Human Moderator Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { tiktokCyan: '#25f4ee', tiktokRed: '#fe2c55', cyberOrange: '#fb923c' } } } }
+    </script>
+</head>
+
+<body class="min-h-screen bg-black text-white px-8 py-8">
+
+    <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+        <h1 class="text-3xl font-extrabold flex items-center gap-3">
+            <svg class="w-8 h-8 text-tiktokRed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                </path>
+            </svg>
+            High-Stakes Escalation Queue
+        </h1>
+        <div class="flex gap-3">
+            <span class="badge badge-error bg-tiktokRed/20 text-tiktokRed border-tiktokRed/50 p-4 font-bold">LPP
+                Confidence: 42.0%</span>
+            <span
+                class="badge badge-warning bg-cyberOrange/10 text-cyberOrange border-cyberOrange/50 p-4 font-bold">Epistemic
+                Uncertainty</span>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-8">
+        <!-- Left Sidebar: Explainability -->
+        <div class="col-span-4 space-y-6">
+            <div class="bg-neutral-900 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-sm font-bold text-zinc-500 uppercase tracking-wider mb-4">XAI Explainability Matrix</h2>
+                <div class="bg-cyberOrange/10 border border-cyberOrange/30 rounded-xl p-4">
+                    <h3 class="text-cyberOrange font-bold mb-2 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        AI Confusion Attribution
+                    </h3>
+                    <p class="text-sm text-zinc-300 leading-relaxed">
+                        Policy gap detected. The claim states 'outlaws all synthetic media', which contradicts RAG doc-1
+                        and doc-3. However, enforcement depends on 'unlabeled vs labeled' status (doc-2) which cannot be
+                        verified from transcript alone. The LLM cannot determine creator intent without more metadata.
+                    </p>
+                </div>
+                <p class="text-xs text-zinc-500 italic mt-4">* To combat automation bias, no preliminary AI
+                    recommendation is provided. Action this manually.</p>
+            </div>
+
+            <div class="bg-neutral-900 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-sm font-bold text-zinc-500 uppercase tracking-wider mb-4">Retrieved RAG Sources</h2>
+                <div class="space-y-4">
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-xs"><span class="text-tiktokCyan font-mono">EU Digital
+                                Services Act</span><span class="text-zinc-500">Rel: 0.94</span></div>
+                        <div class="bg-black/50 p-3 rounded text-sm text-zinc-300">The DSA mandates explicit labeling of
+                            AIGC. It does not completely outlaw...</div>
+                    </div>
+                    <div class="space-y-1 border-t border-white/5 pt-4">
+                        <div class="flex justify-between text-xs"><span class="text-tiktokCyan font-mono">TikTok
+                                Guidelines</span><span class="text-zinc-500">Rel: 0.88</span></div>
+                        <div class="bg-black/50 p-3 rounded text-sm text-zinc-300">Unlabeled AI-generated media
+                            depicting realistic scenes is prohibited...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Claim & Adjudication -->
+        <div class="col-span-8 flex flex-col gap-6">
+            <div class="bg-black border border-white/10 rounded-2xl shadow-xl flex-grow flex flex-col">
+                <div
+                    class="bg-neutral-900/50 p-4 border-b border-white/10 flex justify-between items-center rounded-t-2xl">
+                    <h3 class="font-bold text-lg">Flagged Transcript</h3>
+                    <span class="text-xs font-mono text-zinc-500 bg-black px-2 py-1 rounded">User_ID: 19823101</span>
+                </div>
+                <div class="p-8 flex-grow flex items-center justify-center">
+                    <blockquote class="text-3xl leading-relaxed text-center font-medium">
+                        "New legislation outlaws all synthetic media in the EU starting tomorrow. Share so people know!"
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4">
+                <button
+                    class="btn h-24 bg-neutral-900 border-tiktokRed text-white hover:bg-tiktokRed flex flex-col justify-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Remove Content
+                </button>
+                <button
+                    class="btn h-24 bg-neutral-900 border-cyberOrange text-white hover:bg-cyberOrange flex flex-col justify-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21">
+                        </path>
+                    </svg>
+                    Ineligible for FYF
+                </button>
+                <button
+                    class="btn h-24 bg-neutral-900 border-tiktokCyan text-white hover:bg-tiktokCyan/30 flex flex-col justify-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Approve (No Violation)
+                </button>
+            </div>
+
+            <a href="1-landing-and-concept.html"
+                class="text-zinc-500 text-sm text-center hover:text-white mt-4 underline">← Back to start</a>
+        </div>
+    </div>
+</body>
+
+</html>

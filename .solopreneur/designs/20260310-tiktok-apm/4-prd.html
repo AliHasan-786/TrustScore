@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="black">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustScore-RAG | PRD</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { tiktokCyan: '#25f4ee', tiktokRed: '#fe2c55' } } } }
+    </script>
+</head>
+
+<body class="min-h-screen bg-black text-white">
+    <nav class="navbar border-b border-white/10 px-4">
+        <span class="font-bold text-xl flex items-center gap-2 flex-1">TrustScore-RAG</span>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal text-zinc-400">
+                <li><a href="1-landing-and-concept.html">Concept</a></li>
+                <li><a href="2-triage-simulator.html">Simulator</a></li>
+                <li><a href="3-human-moderator-dashboard.html">Escalation UI</a></li>
+                <li><a class="text-white">PRD</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-6 mt-8 space-y-12">
+        <header>
+            <h1 class="text-4xl font-extrabold mb-4">Product Requirements Document (PRD)</h1>
+            <p class="text-xl text-tiktokCyan font-medium">TrustScore-RAG: Multi-Agent Moderation Triage</p>
+        </header>
+
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b border-white/10 pb-2">1. Objective & Problem Statement</h2>
+            <p class="text-zinc-300 leading-relaxed">
+                As TikTok contends with rapidly evolving safety threats (FIMI networks, AIGC misinformation),
+                traditional classification models are inadequate. Relying entirely on unconstrained LLMs causes <strong
+                    class="text-white">harmful hallucinations</strong> in deeply nuanced policy areas (e.g., civic
+                integrity vs satire). Passing all borderline text to human operators breaks Operational Expenditure
+                (OpEx) budgets and causes massive <strong class="text-white">latency</strong>, letting viral harm
+                escape. Finally, human mediators suffer from <strong class="text-white">automation bias</strong>,
+                blindly trusting AI scores over 93%.
+            </p>
+            <p class="text-zinc-300 leading-relaxed">
+                <strong class="text-white">Solution:</strong> A cost-aware, multi-agent framework utilizing RAG
+                (Retrieval-Augmented Generation) and an LLM Performance Predictor (LPP) to surgically route clear
+                actions while surfacing highly confused, epistemic anomalies back to humans via an Explainable AI (XAI)
+                dashboard.
+            </p>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b border-white/10 pb-2">2. Architecture & TTFT Trade-offs</h2>
+            <div class="bg-neutral-900 border border-white/10 p-6 rounded-2xl">
+                <ul class="list-disc list-inside space-y-3 text-zinc-300 ml-4">
+                    <li><strong class="text-white">Retrieval Agent:</strong> Embeddings matched against an internal
+                        policy KB + authorized external endpoints (WHO, EU DSA).</li>
+                    <li><strong class="text-white">Latency (TTFT) Considerations:</strong> Agentic orchestration adds
+                        ~1.5–3.0s latency. For synchronous tasks like Livestream moderation, this is unacceptable.
+                        Therefore, TrustScore-RAG only acts as a <strong class="text-white">Triage layer</strong> (Layer
+                        2) for items that bypass standard deterministic keyword filters (Layer 1).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b border-white/10 pb-2">3. KPIs & Success Metrics</h2>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-neutral-900 p-4 border border-white/10 border-t-tiktokCyan rounded-xl">
+                    <div class="text-sm text-zinc-500 uppercase mb-2">Primary Metric</div>
+                    <div class="font-bold text-lg mb-1">Escalation Precision Rate</div>
+                    <div class="text-sm text-zinc-400">Percentage of tickets flagged "Epistemic/Aleatoric" that actively
+                        required a human brain.</div>
+                </div>
+                <div class="bg-neutral-900 p-4 border border-white/10 border-t-green-400 rounded-xl">
+                    <div class="text-sm text-zinc-500 uppercase mb-2">Secondary Metric</div>
+                    <div class="font-bold text-lg mb-1">Cost / TTFT Savings</div>
+                    <div class="text-sm text-zinc-400">Total volume of "Auto-Routed" clear cases * (Avg human review
+                        cost - Compute cost).</div>
+                </div>
+                <div class="bg-neutral-900 p-4 border border-white/10 border-t-tiktokRed rounded-xl">
+                    <div class="text-sm text-zinc-500 uppercase mb-2">Health Guardrail</div>
+                    <div class="font-bold text-lg mb-1">Human Override Rate</div>
+                    <div class="text-sm text-zinc-400">If human override drops to near 0%, the XAI matrix failing at
+                        fighting automation bias.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b border-white/10 pb-2">4. GTM & Rollout Planner</h2>
+            <ul class="steps steps-vertical lg:steps-horizontal w-full py-4 text-sm text-zinc-400 font-medium">
+                <li class="step step-primary text-tiktokCyan">Shadow Mode (Metrics Logging)</li>
+                <li class="step step-primary text-tiktokCyan">Tiger Team (Sr. Mods UI testing)</li>
+                <li class="step">Gradual Geo-Scale (US/EU)</li>
+                <li class="step">Policy Feedback Loop</li>
+            </ul>
+            <p class="text-sm text-zinc-500 text-center mt-4">
+                *The Epistemic Uncertainty logs create a direct feedback loop to the Policy team to patch subjective
+                guidelines.*
+            </p>
+        </section>
+    </main>
+</body>
+
+</html>
