@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback} from "react";
+import { useState, useRef, useCallback } from "react";
 import { processClaim, ModerationResult, AgentStep, TEST_CASES, TestCase } from "@/lib/simulator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -224,6 +224,9 @@ export function TriageSimulator() {
             <p className="text-zinc-400 max-w-2xl mx-auto">
               Select a pre-built test case below, or type your own claim. The engine will process it through the full multi-agent RAG pipeline and show you the routing outcome.
             </p>
+            <p className="text-xs text-zinc-600 mt-2">
+              * Note: To ensure zero latency and $0 operational cost for this portfolio demo, this leverages an advanced client-side semantic heuristic engine to mock the behavior of backend agentic orchestration.
+            </p>
           </div>
 
           {/* Test Case Cards */}
@@ -232,11 +235,10 @@ export function TriageSimulator() {
               <button
                 key={tc.id}
                 onClick={() => handleSelectCase(tc)}
-                className={`text-left p-4 rounded-xl border transition-all ${
-                  selectedCase?.id === tc.id
+                className={`text-left p-4 rounded-xl border transition-all ${selectedCase?.id === tc.id
                     ? "border-tiktok-cyan bg-tiktok-cyan/10 shadow-[0_0_15px_rgba(37,244,238,0.2)]"
                     : "border-white/10 bg-zinc-900/50 hover:border-white/20 hover:bg-zinc-800/50"
-                }`}
+                  }`}
               >
                 <Badge variant="outline" className="text-[10px] mb-2">{tc.category}</Badge>
                 <p className="text-sm font-medium text-white leading-snug">{tc.label}</p>
