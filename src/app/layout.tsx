@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Navigation } from "@/components/layout/Navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TrustScore-RAG | TikTok Safety APM",
-  description: "Agentic Escalation Engine Prototype for TikTok Trust and Safety.",
+  title: "TrustScore & Creator Aegis | TikTok Safety APM",
+  description: "Agentic Escalation Engine & Creator Safety Portfolio for TikTok Trust and Safety.",
 };
 
 export default function RootLayout({
@@ -28,7 +29,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TooltipProvider>{children}</TooltipProvider>
+        <TooltipProvider>
+          <Navigation />
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </TooltipProvider>
       </body>
     </html>
   );

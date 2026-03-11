@@ -1,0 +1,74 @@
+import { NextResponse } from 'next/server';
+import { GoogleGenAI, Type, Schema } from '@google/genai';
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+const aegisSchema: Schema = {
+    type: Type.OBJECT,
+    properties: {
+        action: {
+            type: Type.STRING,
+            enum: ['Allow', 'Block'],
+            description: 'Whether to allow or block the comment based on the rules.'
+        },
+        matchedRule: {
+            type: Type.STRING,
+            description: 'If Blocked, cite the specific rule number that was violated.'
+        },
+        reasoning: {
+            type: Type.STRING,
+            description: 'A brief explanation of how the comment maps to the rule, catching evasions or implicit meanings.'
+        }
+    },
+    required: ['action', 'reasoning']
+};
+
+export async function POST(request: Request) {
+    try {
+        const { rules, comment } = await request.json();
+
+        if (!rules || !comment) {
+            return NextResponse.json({ error: 'Rules and comment are required' }, { status: 400 });
+        }
+
+        if (!process.env.GEMINI_API_KEY) {
+            // Fallback for Vercel demo if key is missing
+            return NextResponse.json({
+                action: 'Block',
+                matchedRule: 'Rule 1',
+                reasoning: '(Mock Mode) Simulated block because Gemini API key is missing in production.'
+            });
+        }
+
+        const systemInstruction = `
+            You are "Creator Aegis", a zero-shot natural language moderation filter running on edge devices.
+            A TikTok creator has defined the following personal boundaries:
+            
+            RULES:
+            ${rules}
+            
+            Evaluate the incoming comment. Be highly attuned to semantic evasions, emoji usage, leetspeak, and passive-aggressive bullying that bypasses normal keyword filters.
+            If it violates any rule, Block it. Otherwise, Allow it.
+        `;
+
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: `Comment to evaluate: "${comment}"`,
+            config: {
+                systemInstruction,
+                responseMimeType: 'application/json',
+                responseSchema: aegisSchema,
+                temperature: 0.1
+            }
+        });
+
+        const resultText = response.text;
+        if (!resultText) throw new Error("No text returned from Gemini");
+
+        return NextResponse.json(JSON.parse(resultText));
+
+    } catch (error) {
+        console.error('Error in Creator Aegis:', error);
+        return NextResponse.json({ error: 'Failed to process comment' }, { status: 500 });
+    }
+}
