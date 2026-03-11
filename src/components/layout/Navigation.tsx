@@ -8,8 +8,8 @@ export function Navigation() {
   const pathname = usePathname();
 
   const links = [
-    { href: "/", label: "TrustScore Engine", icon: <Shield className="w-4 h-4" /> },
-    { href: "/creator-aegis", label: "Creator Aegis", icon: <UserCheck className="w-4 h-4" /> },
+    { href: "/", label: "Creator Aegis", icon: <UserCheck className="w-4 h-4" /> },
+    { href: "/trustscore", label: "TrustScore Engine", icon: <Shield className="w-4 h-4" /> },
   ];
 
   return (

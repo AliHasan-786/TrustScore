@@ -1,8 +1,6 @@
-"use client";
+import { UnifiedPortfolio } from "@/components/UnifiedPortfolio";
 
-import { CreatorAegis } from "@/components/CreatorAegis";
-
-export default function Home() {
+export default function TrustScorePage() {
   return (
     <main className="min-h-screen bg-black text-white selection:bg-tiktok-cyan selection:text-black">
       {/* Dynamic Background Gradients */}
@@ -11,7 +9,7 @@ export default function Home() {
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-tiktok-red/10 blur-[120px]" />
       </div>
 
-      <CreatorAegis />
+      <UnifiedPortfolio />
     </main>
   );
 }

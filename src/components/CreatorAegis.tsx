@@ -91,8 +91,8 @@ export function CreatorAegis() {
             Empowering TikTok creators with <strong className="text-white">Natural Language Comment Filtering</strong>. Move beyond maintaining lists of thousands of keywords to semantic, agentic self-moderation.
           </p>
           <div className="pt-4">
-            <a href="/" className="inline-flex items-center justify-center gap-2 bg-zinc-900 border border-white/10 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-zinc-800 transition-all">
-              ← Back to TrustScore Infrastructure
+            <a href="/trustscore" className="inline-flex items-center justify-center gap-2 bg-zinc-900 border border-white/10 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-zinc-800 transition-all">
+              View TrustScore Infrastructure →
             </a>
           </div>
         </div>
@@ -134,7 +134,7 @@ export function CreatorAegis() {
 
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">Interactive Mockup</h2>
-          <p className="text-zinc-400">Edit the rules below and type a comment to see the zero-shot semantic filtering in action (Powered by Gemini API).</p>
+          <p className="text-zinc-400">Edit the rules below and type a comment to see the zero-shot semantic filtering in action (Powered by IBM Granite 3.0 Guardian 8B Edge Model).</p>
         </div>
 
         {/* Mockup Container */}
