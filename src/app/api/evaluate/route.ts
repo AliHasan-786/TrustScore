@@ -124,8 +124,8 @@ export async function POST(request: Request) {
 
         return NextResponse.json(parsedResult);
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error generating LPP assessment:', error);
-        return NextResponse.json({ error: 'Failed to process claim' }, { status: 500 });
+        return NextResponse.json({ error: error.message || 'Failed to process claim' }, { status: 500 });
     }
 }
