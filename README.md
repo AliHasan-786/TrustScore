@@ -3,6 +3,8 @@
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://tiktok-apm-portfolio.vercel.app/) 
 
+SEE HERE: https://tiktok-apm-portfolio.vercel.app/
+
 ## 🎯 Executive Summary
 I built this comprehensive, full-stack application as a direct demonstration of my qualifications for the **Associate Product Manager - Safety Product** role at TikTok (San Jose). 
 
