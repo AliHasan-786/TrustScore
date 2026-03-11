@@ -73,8 +73,8 @@ export async function POST(request: Request) {
 
         return NextResponse.json(JSON.parse(resultText));
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error in Creator Aegis:', error);
-        return NextResponse.json({ error: 'Failed to process comment' }, { status: 500 });
+        return NextResponse.json({ error: error.message || 'Failed to process comment' }, { status: 500 });
     }
 }

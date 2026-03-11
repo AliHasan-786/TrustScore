@@ -40,6 +40,18 @@ export function CreatorAegis() {
 
       const data = await res.json();
 
+      if (!res.ok) {
+        setResults([{
+          user: "system_error_" + Math.floor(Math.random() * 1000),
+          comment: testComment,
+          action: "Error",
+          matchedRule: "API Failed",
+          reasoning: data.error || "An unknown error occurred during processing."
+        }, ...results]);
+        setTestComment("");
+        return;
+      }
+
       setResults([{
         user: "test_user_" + Math.floor(Math.random() * 1000),
         comment: testComment,
@@ -49,8 +61,15 @@ export function CreatorAegis() {
       }, ...results]);
 
       setTestComment("");
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
+      setResults([{
+        user: "network_error",
+        comment: testComment,
+        action: "Error",
+        matchedRule: "Network Down",
+        reasoning: e.message || "Failed to reach the API."
+      }, ...results]);
     } finally {
       setIsProcessing(false);
     }
