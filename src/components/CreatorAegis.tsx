@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ShieldCheck, Bot, XCircle, CheckCircle2, Lock, Send, Loader2 } from "lucide-react";
+import { ShieldCheck, Bot, XCircle, CheckCircle2, Lock, Send, Loader2, AlertCircle } from "lucide-react";
 
 export function CreatorAegis() {
   const [rules, setRules] = useState("1. Block anyone criticizing my weight or body shape.\n2. Hide comments that mention my ex-boyfriend Alex.\n3. Remove spam asking me to check out their soundcloud.");
@@ -219,20 +219,20 @@ export function CreatorAegis() {
               </h3>
 
               {results.map((res, i) => (
-                <div key={i} className={`rounded-xl border p-4 flex gap-4 items-start ${res.action === 'Block' ? 'bg-black border-red-900/30' : 'bg-black border-green-900/30'}`}>
+                <div key={i} className={`rounded-xl border p-4 flex gap-4 items-start ${res.action === 'Block' ? 'bg-black border-red-900/30' : res.action === 'Error' ? 'bg-black border-orange-900/30' : 'bg-black border-green-900/30'}`}>
                   <div className="w-8 h-8 rounded-full bg-zinc-800 shrink-0 flex items-center justify-center text-xs">
                     {res.user.substring(0, 2).toUpperCase()}
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="text-sm font-bold text-white mb-0.5">{res.user}</p>
-                    <p className="text-sm text-zinc-300">{res.comment}</p>
+                    <p className="text-sm text-zinc-300 break-words">{res.comment}</p>
                     <div className="mt-3 flex flex-col gap-2">
-                      <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-mono w-fit ${res.action === 'Block' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-green-500/10 text-green-400 border border-green-500/20'}`}>
-                        {res.action === 'Block' ? <XCircle className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
-                        {res.action === 'Block' ? `Caught by ${res.matchedRule || 'Rules'}` : 'Allowed'}
+                      <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-mono w-fit ${res.action === 'Block' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : res.action === 'Error' ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' : 'bg-green-500/10 text-green-400 border border-green-500/20'}`}>
+                        {res.action === 'Block' ? <XCircle className="w-3.5 h-3.5" /> : res.action === 'Error' ? <AlertCircle className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+                        {res.action === 'Block' ? `Caught by ${res.matchedRule || 'Rules'}` : res.action === 'Error' ? 'System Error' : 'Allowed'}
                       </div>
-                      <p className="text-xs text-zinc-500 italic pl-1 border-l-2 border-zinc-800 ml-1">
-                        " {res.reasoning} "
+                      <p className="text-xs text-zinc-500 italic pl-1 border-l-2 border-zinc-800 ml-1 break-words whitespace-pre-wrap">
+                        " {String(res.reasoning)} "
                       </p>
                     </div>
                   </div>
